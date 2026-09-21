@@ -1,10 +1,20 @@
 import RecipeCard from "./RecipeCard";
+import { useFavorites } from "./FavoritesContext";
 
 const Favorites: React.FC = () => {
+  const { favorites } = useFavorites();
+
   return (
     <div className="favorites-container">
-      {/* TODO: implement favorites list (data-testid="favorites-list") and "No favorites yet!" message (data-testid="no-favorites") */}
-      <RecipeCard />
+      {favorites.length === 0 ? (
+        <p data-testid="no-favorites">No favorites yet!</p>
+      ) : (
+        <div data-testid="favorites-list">
+          {favorites.map((recipe) => (
+            <RecipeCard key={recipe.id} recipe={recipe} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
